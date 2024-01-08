@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4B07FD5E-5065-4723-873C-471FFB0875E4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4EA923E6-5276-42CC-A534-462E5FC288C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionService", "src\AuctionService\AuctionService.csproj", "{8C705F02-10C4-458C-9398-487D327E0610}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionService", "src\AuctionService\AuctionService.csproj", "{9822D54E-2485-44D6-B24F-45E052526454}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,12 +16,12 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8C705F02-10C4-458C-9398-487D327E0610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C705F02-10C4-458C-9398-487D327E0610}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C705F02-10C4-458C-9398-487D327E0610}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C705F02-10C4-458C-9398-487D327E0610}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9822D54E-2485-44D6-B24F-45E052526454}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9822D54E-2485-44D6-B24F-45E052526454}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9822D54E-2485-44D6-B24F-45E052526454}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9822D54E-2485-44D6-B24F-45E052526454}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{8C705F02-10C4-458C-9398-487D327E0610} = {4B07FD5E-5065-4723-873C-471FFB0875E4}
+		{9822D54E-2485-44D6-B24F-45E052526454} = {4EA923E6-5276-42CC-A534-462E5FC288C6}
 	EndGlobalSection
 EndGlobal
