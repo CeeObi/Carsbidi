@@ -1,6 +1,8 @@
-using MongoDB.Driver;
-using MongoDB.Entities;
+using System.Net;
+using Polly;
+using Polly.Extensions.Http;
 using SearchService.Data;
+using SearchService.Services;
 // using SearchService.Model;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddHttpClient<AuctionServiceHttpClient>().AddPolicyHandler(GetPolicy());
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 // builder.Services.AddEndpointsApiExplorer();
 // builder.Services.AddSwaggerGen();
@@ -27,7 +31,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-/////Moved to DbInitializer class in Data folder
+app.Lifetime.ApplicationStarted.Register(async () => {
+    /////Moved to DbInitializer class in Data folder
 // await DB.InitAsync("SearchDb", MongoClientSettings.FromConnectionString(builder.Configuration.GetConnectionString("MongoDbDefaultConnection")) );
 // await DB.Index<Item>()
 //     .Key(x => x.Make, KeyType.Text)
@@ -35,15 +40,25 @@ app.MapControllers();
 //     .Key(x => x.Color, KeyType.Text)
 //     .CreateAsync();
 ///////////////
-try
-{
-    await DbInitializer.InitDb(app);
-}
-catch (Exception e)
-{
-    
-    Console.WriteLine(e);
-}
+    try
+    {
+        await DbInitializer.InitDb(app);
+    }
+    catch (Exception e)
+    {
+        
+        Console.WriteLine(e);
+    }
+});
+
+
 
 
 app.Run();
+
+
+//Policy Handler
+static IAsyncPolicy<HttpResponseMessage> GetPolicy() => HttpPolicyExtensions
+                                                        .HandleTransientHttpError()
+                                                        .OrResult(msg => msg.StatusCode == HttpStatusCode.NotFound)
+                                                        .WaitAndRetryForeverAsync(_=> TimeSpan.FromSeconds(3));
