@@ -1,6 +1,6 @@
 ﻿using MongoDB.Entities;
 
-namespace SearchService.Item;
+namespace SearchService.Model;
 
 public class Item : Entity //has same properties as the Auction DTO but derieved from mgDb class called Entity which provides its own id, hence no id property.
 {
