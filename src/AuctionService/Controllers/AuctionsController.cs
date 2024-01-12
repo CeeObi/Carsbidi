@@ -67,11 +67,10 @@ public class AuctionsController : ControllerBase
 
         _context.Auctions.Add(new_auction);
 
-        var result =  await _context.SaveChangesAsync() > 0;//Saves to DB
+        var newAuction = _mapper.Map<AuctionDto>(new_auction);        
+        await _publishEndpoint.Publish(_mapper.Map<AuctionCreated>(newAuction));//Publishes to rabbitmq for subscribers to consume.
 
-        var newAuction = _mapper.Map<AuctionDto>(new_auction);
-        
-        await _publishEndpoint.Publish(_mapper.Map<AuctionCreated>(newAuction));
+        var result =  await _context.SaveChangesAsync() > 0;//Saves to DB
 
         if(!result) {return BadRequest("Could not save changes to the Db");}        
         
