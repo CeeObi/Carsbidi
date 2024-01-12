@@ -13,9 +13,10 @@ public class AuctionCreatedConsumer : IConsumer<AuctionCreated>
     {
         _mapper = mapper;
     }
+    
     public async Task Consume(ConsumeContext<AuctionCreated> context)
     {
-        Console.WriteLine("Consuming auctionCreated: " + context.Message.Id);
+        Console.WriteLine("--> Consuming auctionCreated: " + context.Message.Id);
         var item = _mapper.Map<Item>(context.Message);
         await item.SaveAsync();
     }

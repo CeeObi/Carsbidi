@@ -19,9 +19,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMassTransit(x =>
             {
                 x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
+                x.AddConsumersFromNamespaceContaining<AuctionUpdatedConsumer>();
                 x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("search",false));
-
-
 
                 x.UsingRabbitMq((context,cfg) =>
                 {
@@ -33,6 +32,7 @@ builder.Services.AddMassTransit(x =>
                     cfg.ReceiveEndpoint("search-auction-created", e => {
                         e.UseMessageRetry(rtry => rtry.Interval(5, 5));
                         e.ConfigureConsumer<AuctionCreatedConsumer>(context);
+                        e.ConfigureConsumer<AuctionUpdatedConsumer>(context);
                     });
 
                     cfg.ConfigureEndpoints(context);
