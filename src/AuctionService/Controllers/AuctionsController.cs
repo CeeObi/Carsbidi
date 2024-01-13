@@ -109,13 +109,22 @@ public class AuctionsController : ControllerBase
 
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteAuction(Guid id)
-    {
+    {        
         var auction = await _context.Auctions.FindAsync(id);
         if (auction == null) return NotFound();
         
         //TODO: check to ensure the seller == username
-
         _context.Auctions.Remove(auction);
+
+        var _deleteAuction = new DeleteAuctionDto ()
+        { 
+            Id = auction.Id.ToString()
+        };
+        
+        var deletedAuction = _mapper.Map<AuctionDeleted>(_deleteAuction);
+
+        await _publishEndpoint.Publish(deletedAuction);
+
 
         var result =  await _context.SaveChangesAsync() > 0;
 

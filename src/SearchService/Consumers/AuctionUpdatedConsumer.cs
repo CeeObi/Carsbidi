@@ -8,14 +8,6 @@ namespace SearchService.Consumer;
 
 public class AuctionUpdatedConsumer : IConsumer<AuctionUpdated>
 {
-    private readonly IMapper _mapper;
-
-    public AuctionUpdatedConsumer(IMapper mapper)
-    {
-        _mapper = mapper;
-    }
-
-
     public async Task Consume(ConsumeContext<AuctionUpdated> context)
     {
         Console.WriteLine("--> Consuming auctionUpdated: " + context.Message.Id);
@@ -28,8 +20,5 @@ public class AuctionUpdatedConsumer : IConsumer<AuctionUpdated>
         .Modify(b => b.Mileage, context.Message.Mileage)
         .Modify(b => b.Year, context.Message.Year)
         .ExecuteAsync();
-
-
-        // var result = await 
     }
 }
