@@ -6,6 +6,7 @@ using AutoMapper.QueryableExtensions;
 using Contracts;
 using MassTransit;
 using MassTransit.RabbitMqTransport;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,14 +57,14 @@ public class AuctionsController : ControllerBase
         return _mapper.Map<AuctionDto>(auction);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<AuctionDto>> CreateAuction(CreateAuctionDto newAuctionDto) 
     {
         var new_auction = _mapper.Map<Auction>(newAuctionDto);
 
-        //TODO: Add current user as seller
-        
-        new_auction.Seller="test";
+        //TODO: Add current user as seller        
+        new_auction.Seller=User.Identity.Name;//"test";
 
         _context.Auctions.Add(new_auction);
 
@@ -77,6 +78,7 @@ public class AuctionsController : ControllerBase
         return CreatedAtAction(nameof(GetAuctionById), new {new_auction.Id}, newAuction);
     }
 
+    [Authorize]
     [HttpPut("{id}")]    
     public async Task<ActionResult> UpdateAuction(UpdateAuctionDto updateAuction, Guid id)
     {
@@ -86,6 +88,7 @@ public class AuctionsController : ControllerBase
         if (auction == null) return NotFound();
 
         //TODO: check to ensure the seller == username
+        if(auction.Seller != User.Identity.Name) return Forbid();
 
         auction.Item.Make = updateAuction.Make ?? auction.Item.Make;
         auction.Item.Model = updateAuction.Model ?? auction.Item.Model;
@@ -107,6 +110,7 @@ public class AuctionsController : ControllerBase
         return Ok();   
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteAuction(Guid id)
     {        
@@ -114,6 +118,8 @@ public class AuctionsController : ControllerBase
         if (auction == null) return NotFound();
         
         //TODO: check to ensure the seller == username
+        if(auction.Seller != User.Identity.Name) return Forbid();
+
         _context.Auctions.Remove(auction);
 
         var _deleteAuction = new DeleteAuctionDto ()
