@@ -41,9 +41,29 @@ services:
       - IdentityServiceUrl=http://identity-svc
     ports:
       - 7001:80
-    depends_on:
+    depends_on: #Services above
       - postgres
-      - rabbitmq      
+      - rabbitmq     
+
+  #Building SearchService from my local file location
+  search-svc:
+    image: ceeobi/search-svc:latest #We assign the image a name here
+    build:
+      context: .
+      dockerfile: src/SearchService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RabbitMq__Host=rabbitmq #Assigns the 'rabbitmq' container, above in docker to 'Host in RabbitMq in Configfile'
+      - ConnectionStrings__MongoDbDefaultConnection=mongodb://root:passw0rd@mongo
+      - IdentityServiceUrl=http://identity-svc
+      - AuctionServiceUrl:http://auction-svc
+    ports:
+      - 7002:80
+    depends_on:
+      - mongo
+      - rabbitmq 
+      #- auction-svc => No need because resilence is already setup
 
 volumes:
   pgdata:
