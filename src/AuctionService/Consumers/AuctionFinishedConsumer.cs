@@ -8,7 +8,6 @@ namespace AuctionService;
 
 public class AuctionFinishedConsumer : IConsumer<AuctionFinished>
 {
-    private readonly IMapper _mapper;
     private readonly AuctionDbContext _dbContext;
 
     public AuctionFinishedConsumer(AuctionDbContext dbContext)
