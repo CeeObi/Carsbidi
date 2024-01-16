@@ -18,7 +18,7 @@ RUN dotnet restore Carsbidi.sln
 COPY src/GatewayService src/GatewayService
 WORKDIR /app/src/GatewayService
 RUN dotnet publish -c Release -o /app/src/out
-
+ 
 #Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0.1
 WORKDIR /app
