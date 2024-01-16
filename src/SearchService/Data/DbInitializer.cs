@@ -37,7 +37,7 @@ public class DbInitializer
         Console.WriteLine(items.Count + " returned from the auction server." );
             
         
-        if (items.Count > 0)
+        if (items.Count > 0) 
         {
             // var itemData = await File.ReadAllTextAsync("Data/auctions.json");
             // var options = new JsonSerializerOptions {PropertyNameCaseInsensitive=true};

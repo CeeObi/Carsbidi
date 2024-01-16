@@ -96,9 +96,6 @@ public class AuctionsController : ControllerBase
         auction.Item.Mileage = updateAuction.Mileage ?? auction.Item.Mileage;
         auction.Item.Year = updateAuction.Year ?? auction.Item.Year;
 
-        
-
-
         var updatedAuction = _mapper.Map<AuctionUpdated>(updateAuction);
         updatedAuction.Id = id.ToString();
         await _publishEndpoint.Publish(updatedAuction);///////Publish UPDATED

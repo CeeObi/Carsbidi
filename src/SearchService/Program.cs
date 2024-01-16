@@ -27,7 +27,7 @@ builder.Services.AddMassTransit(x =>
                     // cfg.Host("localhost", "/", h => {
                     //     h.Username("guest");
                     //     h.Password("guest");
-                    // });
+                    // }); 
                     cfg.Host(builder.Configuration["RabbitMq:Host"], "/", host => {
                         host.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
                         host.Password(builder.Configuration.GetValue("RabbitMq:Password", "guest"));
@@ -90,7 +90,7 @@ app.Lifetime.ApplicationStarted.Register(async () => {
     catch (Exception e)
     {
         
-        Console.WriteLine(e);
+        Console.WriteLine(e); 
     }
 });
 

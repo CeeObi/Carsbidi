@@ -13,7 +13,6 @@
             "sourceFileMap": {
                 "/app": "${workspaceFolder}"
             },
-            // "requireExactSource": false
         },
         {
             "name": ".NET Core Launch (web)",
