@@ -1,4 +1,5 @@
-import { create } from "zustand"
+import { shallow } from "zustand/shallow"
+import { createWithEqualityFn } from "zustand/traditional"
 
 type State = {
     pageNumber:number,
@@ -19,10 +20,9 @@ const initialState = {
     searchTerm:""    
 }
 
-const useParamsStore = create<State & Actions>()((set) => ({
+const useParamsStore = createWithEqualityFn<State & Actions>()((set) => ({
     ...initialState,
-    setParams: (newParams : Partial<State>)=>{
-        console.log("YYYYYYYYYYYYYYYYYYYYEEEEE")        
+    setParams: (newParams : Partial<State>)=>{  
         set((state) => {
             if (newParams.pageNumber){
                 return {...state, pageNumber: newParams.pageNumber}
@@ -34,7 +34,7 @@ const useParamsStore = create<State & Actions>()((set) => ({
     },
 
     reset: () => set(initialState)
-}))
+}), shallow)
 
 
 export {useParamsStore};
