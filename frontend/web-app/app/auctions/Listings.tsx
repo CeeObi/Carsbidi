@@ -5,19 +5,21 @@ import AppPagination from "../components/AppPagination";
 import { Auction } from "@/types";
 import React, { useEffect, useState } from "react";
 import { getData } from "../actions/auctionActions";
+import Filters from "./Filters";
 
  
 function Listings() {
     const [auctions,setAuctions] = useState<Auction[]> ([]);
     const [pageNumber,setPageNumber] = useState(1);
     const [pageCount,setPageCount] = useState(1);
+    const [pageSize,setPageSize] = useState(4);
 
     useEffect(() => {
-        getData(pageNumber).then((data) => {
+        getData(pageNumber, pageSize).then((data) => {
                 setAuctions(data.results);
                 setPageCount(data.pageCount);
         });
-    },[pageNumber])
+    },[pageNumber,pageSize])
 
 
   if (auctions.length === 0){
@@ -27,6 +29,7 @@ function Listings() {
 
   return (
   <>
+    <Filters pageSize={pageSize} setPageSize={setPageSize}/>
     <div className="grid grid-cols-4 gap-6">
         {
             auctions.map((result) => (<AuctionCard key={result.id} auction={result} />))
