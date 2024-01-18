@@ -8,6 +8,7 @@ import { getData } from "../actions/auctionActions";
 import Filters from "./Filters";
 import { useParamsStore } from "../hooks/useParamsStore";
 import qs from "query-string";
+import EmptyFilter from "../components/EmptyFilter";
 
  
 function Listings() {
@@ -39,17 +40,21 @@ function Listings() {
   if (!data){
      return <h3>Loading...</h3>
   }   
+ 
 
   return (<>
     <Filters />
-    <div className="grid grid-cols-4 gap-6">
-        {
-            data.results.map((result) => (<AuctionCard key={result.id} auction={result} />))
-        }
-    </div>
-    <div className="flex justify-center mt-4">
-        <AppPagination currentPage={params.pageNumber} pageCount={data.pageCount} changePage={setPageNumber}/>
-    </div>
+    {data.totalCount===0 ? <EmptyFilter showReset /> 
+    :<>
+        <div className="grid grid-cols-4 gap-6">
+            {
+                data.results.map((result) => (<AuctionCard key={result.id} auction={result} />))
+            }
+        </div>
+        <div className="flex justify-center mt-4">
+            <AppPagination currentPage={params.pageNumber} pageCount={data.pageCount} changePage={setPageNumber}/>
+        </div>
+    </>}
   </>)
 }
 
