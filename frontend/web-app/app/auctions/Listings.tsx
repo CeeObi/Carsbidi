@@ -16,10 +16,11 @@ function Listings() {
         pageSize: state.pageSize,
         pageNumber: state.pageNumber,
         searchTerm: state.searchTerm,
+        orderBy: state.orderBy
     }))
 
     const setParams = useParamsStore((state) => state.setParams)
-    const url = qs.stringifyUrl({url:"", query: params})
+    const dataUrl = qs.stringifyUrl({url:"", query: params})
 
      
     function setPageNumber(pageNumber: number) {
@@ -28,10 +29,10 @@ function Listings() {
     }
 
     useEffect(() => {
-        getData(url).then((gottenData) => {
+        getData(dataUrl).then((gottenData) => {
                 setData(gottenData);
         });
-    },[url])
+    },[dataUrl])
 
 
   if (!data){

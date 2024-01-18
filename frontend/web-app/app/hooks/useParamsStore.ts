@@ -5,8 +5,9 @@ type State = {
     pageNumber:number,
     pageCount:number,
     pageSize:number,
-    searchTerm:string
-    searchValue:string
+    searchTerm:string,
+    searchValue:string,
+    orderBy:string
 }
 
 type Actions = {
@@ -20,7 +21,8 @@ const initialState = {
     pageCount: 1,
     pageNumber: 1,
     searchTerm:"",
-    searchValue:""    
+    searchValue:"",
+    orderBy:"make"    
 }
 
 const useParamsStore = createWithEqualityFn<State & Actions>()((set) => ({
