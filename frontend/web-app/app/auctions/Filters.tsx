@@ -32,7 +32,7 @@ const filterButtons = [
   {
     label: "Ending < 6 hours",
     icon: GiFinishLine,
-    value: "endingSoon"
+    value: "endingsoon"
   },
   {
     label: "Completed",
