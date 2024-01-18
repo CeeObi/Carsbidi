@@ -8,6 +8,8 @@ type State = {
     searchTerm:string,
     searchValue:string,
     orderBy:string
+    filterBy:string
+
 }
 
 type Actions = {
@@ -22,7 +24,8 @@ const initialState = {
     pageNumber: 1,
     searchTerm:"",
     searchValue:"",
-    orderBy:"make"    
+    orderBy:"make",  
+    filterBy:"live"  
 }
 
 const useParamsStore = createWithEqualityFn<State & Actions>()((set) => ({
