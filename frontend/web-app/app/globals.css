@@ -3,3 +3,8 @@
 @tailwind utilities;
 
 
+.react-datepicker-wrapper{
+    width:100%
+}
+
+

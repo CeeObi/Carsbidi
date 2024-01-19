@@ -4,7 +4,7 @@ import { UseControllerProps, useController } from 'react-hook-form'
 
 type Props = {
     label:string,
-    types?: string,
+    type?: string,
     showlabel?: boolean
 } & UseControllerProps //& applies to deriving from useControllerProps
 
@@ -20,7 +20,7 @@ function Input(props: Props) {
         <TextInput 
                 {...props}
                 {...field}
-                type={props.types || "text"}
+                type={props.type || "text"}
                 placeholder={props.label}
                 color={fieldState.error ? "failure" : !fieldState.isDirty ? "" : "success"}
                 helperText={fieldState.error?.message}

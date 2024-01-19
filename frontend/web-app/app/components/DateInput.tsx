@@ -1,7 +1,9 @@
 import React from 'react'
-import { DatePicker, Label, TextInput } from 'flowbite-react'
+import { Label, TextInput } from 'flowbite-react'
 import { UseControllerProps, useController } from 'react-hook-form'
 import ReactDatePicker, { ReactDatePickerProps } from 'react-datepicker'
+
+
 
 type Props = {
     label:string,
@@ -12,20 +14,23 @@ type Props = {
 
 
 function DateInput(props: Props) {
-    const  {fieldState,field} = useController({...props, defaultValue:""})
-  
+    const  {fieldState, field} = useController({...props, defaultValue:""}) 
   
     return (
     <div className='block'>
-        <DatePicker  
+        <ReactDatePicker  
                 {...props}
                 {...field}
-                onChange={(value: any) => field.onChange(value)}
+                onChange={(value) => field.onChange(value)}
                 selected={field.value}
                 placeholderText={props.label}
-                color={fieldState.error ? "failure" : !fieldState.isDirty ? "" : "success"}
-                helperText={fieldState.error?.message}
+                className = {`rounded-lg w-[100%] flex flex-col ${fieldState.error ? "bg-red-50 border-red-500 text-red-900":
+                            (!fieldState.invalid && fieldState.isDirty) ? "bg-green-50 border-green-500 text-green-900":""}
+                        `}
             />
+            {fieldState.error && (<div className='text-red-50 text-sm'>
+                {fieldState.error.message}
+            </div>)}
     </div>
   )
 }
