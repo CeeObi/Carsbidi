@@ -7,8 +7,10 @@ type State = {
     pageSize:number,
     searchTerm:string,
     searchValue:string,
-    orderBy:string
-    filterBy:string
+    orderBy:string,
+    filterBy:string,
+    seller?:string,
+    winner?: string
 
 }
 
@@ -25,7 +27,9 @@ const initialState = {
     searchTerm:"",
     searchValue:"",
     orderBy:"make",  
-    filterBy:"live"  
+    filterBy:"live",
+    seller: undefined,
+    winner: undefined  
 }
 
 const useParamsStore = createWithEqualityFn<State & Actions>()((set) => ({

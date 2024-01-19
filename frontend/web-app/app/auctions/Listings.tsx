@@ -18,7 +18,9 @@ function Listings() {
         pageNumber: state.pageNumber,
         searchTerm: state.searchTerm,
         orderBy: state.orderBy,
-        filterBy: state.filterBy
+        filterBy: state.filterBy,
+        seller: state.seller,
+        winner: state.winner,
     }))
 
     const setParams = useParamsStore((state) => state.setParams)
@@ -31,6 +33,7 @@ function Listings() {
     }
 
     useEffect(() => {
+        console.log(dataUrl)
         getData(dataUrl).then((gottenData) => {
                 setData(gottenData);
         });
