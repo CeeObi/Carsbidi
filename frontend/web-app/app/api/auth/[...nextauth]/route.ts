@@ -21,7 +21,6 @@ const authOptions : NextAuthOptions = {
             idToken: true
         })
     ],
-
     
     pages: {
         signIn:"/api/auth/signin"
@@ -34,7 +33,7 @@ const authOptions : NextAuthOptions = {
             }
             
             if (account){
-                token.access_token = account //module augmentation was used to modify and add the property 'username'
+                token.access_token = account.access_token //module augmentation was used to modify and add the property 'username'
             }
             return token
         },
