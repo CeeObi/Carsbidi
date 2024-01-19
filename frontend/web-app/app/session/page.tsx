@@ -1,14 +1,16 @@
 // import { getSession } from 'next-auth/react'
 import React from 'react'
 import Headings from '../components/Headings'
-import { getSession } from '../actions/authActions'
+import { getSession, getTokenWorkAround } from '../actions/authActions'
+import AuthTest from './AuthTest'
 
 
 
 
 async function session() {
   const session = await getSession()
-  console.log(session);
+  const token = await getTokenWorkAround()
+  // console.log(session);
 
 
   return (
@@ -17,6 +19,11 @@ async function session() {
         <div className="bg-blue-200 border-2 border-blue-500">
             <h3 className='text-lg'>Session Data</h3>
             <pre>{JSON.stringify(session,null,2)}</pre>
+        </div>
+        <AuthTest />
+        <div className="bg-green-200 border-2 border-blue-500 mt-4">
+            <h3 className='text-lg'>Token Data</h3>
+            <pre className='overflow-auto'>{JSON.stringify(token,null,2)}</pre>
         </div>
     </div>
   )

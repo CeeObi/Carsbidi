@@ -4,10 +4,9 @@ export { default } from "next-auth/middleware"
 
 export const config = {
     matcher: [
-        "/session"
+        "/app/session"
     ],
-
-    pages: {
-        signIn:"/api/auth/signin"
+    pages:{
+        signIn: "app/api/auth/signin"
     }
-}
+} 
