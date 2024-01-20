@@ -4,7 +4,7 @@ const nextConfig = {
 //         serverActions:true,
 //     },
     images:{
-        domains: ["cdn.pixabay.com"]
+        domains: ["cdn.pixabay.com","media.istockphoto.com"]
     },
     env:{
         NEXTAUTH_SECRET: "e85d99a51f44c3c0e67332b0f6d555189fc8d4cfd330ad992af9776ec2d37418",//Need to make this acces from the .env file later

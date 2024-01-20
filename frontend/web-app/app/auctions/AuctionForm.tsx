@@ -4,14 +4,26 @@ import React, { useEffect } from 'react'
 import { FieldValue, FieldValues, useForm } from 'react-hook-form'
 import Input from '../components/Input';
 import DateInput from '../components/DateInput';
+import { createAuction, deleteAuction } from '../actions/auctionActions';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 
 
 function AuctionForm() {
-    const {control, handleSubmit, setFocus, formState:{isValid,isSubmitting,errors,isDirty}} = useForm({mode:"onTouched"});
+    const {control, handleSubmit, setFocus, formState:{isValid,isSubmitting}} = useForm({mode:"onTouched"});
+    const router = useRouter()
 
-    function onSubmit(data : FieldValues) {
-        console.log(data)
+    async function onSubmit(data : FieldValues) {
+        try {
+            const res = await createAuction(data)
+            if (res.error) {
+                throw res.error
+            }
+            router.push(`/auctions/details/${res.id}`)
+        } catch (error: any) {
+            toast.error(error.status + " " + error.message)            
+        }
     }
 
     useEffect(() => setFocus("make"),[setFocus])
@@ -25,16 +37,23 @@ function AuctionForm() {
             <Input label='Year' name='year' control={control} rules={{required:"Year is required"}} type='number' /> 
             <Input label='Mileage' name='mileage' control={control} rules={{required:"Mileage is required"}} type='number' /> 
         </div>           
-        <Input label='Image URL' name='imageURL' control={control} rules={{required:"Image URL is required"}} /> 
+        <Input label='Image URL' name='imageURL' control={control} rules={{required:"Image URL is required"}} />
+
+
         <div className='grid grid-cols-2 gap-3'>
             <Input label='Reserve Price (Please enter 0 if no reserve)' name='reservePrice' control={control} 
                         rules={{required:"Reserve Price is required"}} type='number' /> 
+
+
             <DateInput label='Auction End Date/Time' name='auctionEnd' control={control} 
                     rules={{required:"Auction End date is required"}} dateFormat='dd MMMM yyyy h:mm a' showTimeSelect /> 
-        </div>           
+        </div>  
+
+
+
         <div className='flex justify-between'>
             <Button outline color='gray'>Cancel</Button>
-            <Button type='submit' outline disabled={isValid} isProcessing={isSubmitting} color='success'>Submit</Button>
+            <Button type='submit' outline disabled={!isValid} isProcessing={isSubmitting} color='success'>Submit</Button>
 
         </div>
     </form>

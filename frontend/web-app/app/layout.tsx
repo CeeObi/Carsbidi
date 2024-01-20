@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Navbar from './nav/Navbar'
+import ToasterProvider from '@/provider/ToasterProvider'
 
 
 export const metadata: Metadata = {
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode})
 {
   return (
-    <html lang="en">      
+    <html lang="en">
+      <ToasterProvider/>      
       <body className="">
         <Navbar />
         <main className='container mx-auto px-5 pt-10'>{children}</main>        
