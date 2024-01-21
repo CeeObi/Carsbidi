@@ -1,5 +1,6 @@
 using AuctionService;
 using AuctionService.Data;
+using Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +26,9 @@ builder.Services.AddMassTransit(x =>
                     o.UseBusOutbox();
                 });
 
-                x.AddConsumersFromNamespaceContaining<AuctionCreatedFaultConsumer>();
+                x.AddConsumersFromNamespaceContaining<AuctionCreatedFaultConsumer>();//ConsumesFaultfromRabbitmq
                 // x.AddConsumersFromNamespaceContaining<AuctionFinishedConsumer>();
+                x.AddConsumersFromNamespaceContaining<BidPlacedConsumer>();
                 x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction",false));
 
                 x.UsingRabbitMq((context,cfg) =>
