@@ -120,7 +120,7 @@ services:
       - IdentityServiceUrl=http://identity-svc
       - GrpcAuction:http://auction-svc:7777
     ports:
-      - 7002:80
+      - 7003:80
     depends_on:
       - mongo
       - rabbitmq 
