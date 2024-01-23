@@ -13,18 +13,17 @@ COPY src/BiddingService/BiddingService.csproj src/BiddingService/BiddingService.
 COPY src/IdentityService/IdentityService.csproj src/IdentityService/IdentityService.csproj
 COPY src/Contracts/Contracts.csproj src/Contracts/Contracts.csproj
 
-
 #Restore the package dependencies
 RUN dotnet restore Carsbidi.sln
 
 #Copy the app folders over
-COPY src/AuctionService src/AuctionService
+COPY src/NotificationService src/NotificationService
 COPY src/Contracts src/Contracts
-WORKDIR /app/src/AuctionService
+WORKDIR /app/src/NotificationService
 RUN dotnet publish -c Release -o /app/src/out
 
 #Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0.1
 WORKDIR /app
 COPY --from=build /app/src/out .
-ENTRYPOINT [ "dotnet", "AuctionService.dll" ]
+ENTRYPOINT [ "dotnet", "NotificationService.dll" ]

@@ -8,9 +8,11 @@ COPY Carsbidi.sln Carsbidi.sln
 COPY src/AuctionService/AuctionService.csproj src/AuctionService/AuctionService.csproj
 COPY src/SearchService/SearchService.csproj src/SearchService/SearchService.csproj
 COPY src/GatewayService/GatewayService.csproj src/GatewayService/GatewayService.csproj
+COPY src/NotificationService/NotificationService.csproj src/NotificationService/NotificationService.csproj
 COPY src/BiddingService/BiddingService.csproj src/BiddingService/BiddingService.csproj
 COPY src/IdentityService/IdentityService.csproj src/IdentityService/IdentityService.csproj
 COPY src/Contracts/Contracts.csproj src/Contracts/Contracts.csproj
+
 
 #Restore the package dependencies
 RUN dotnet restore Carsbidi.sln
