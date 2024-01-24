@@ -2,6 +2,7 @@ import CountdownTimer from "./CountdownTimer"
 import CarImage from "./CarImage"
 import { Auction } from "@/types"
 import Link from "next/link"
+import CurrentBid from "./CurrentBid"
 
 
 
@@ -18,6 +19,9 @@ function AuctionCard({auction}:Props) {
           <CarImage imgUrl={auction.imageUrl}/>
             <div className="absolute bottom-2 left-2">
               <CountdownTimer auctionEnd={auction.auctionEnd} />
+            </div>        
+            <div className="absolute top-2 right-2">
+              <CurrentBid amount={auction.currentHighBid} reservePrice={auction.reservePrice} />
             </div>        
           </div>
       </div>
