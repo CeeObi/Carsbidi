@@ -48,7 +48,7 @@ function SignalRProvider({children, user}:Props) {
                 })
                 
                 connection.on("AuctionFinished",(finishedAuction: AuctionFinished) => {
-                    const auction = getDetailedAuction(finishedAuction?.auctionId);
+                    const auction = getDetailedAuction(finishedAuction.auctionId);
                     
                     return toast.promise(auction, {
                         loading: "loading",

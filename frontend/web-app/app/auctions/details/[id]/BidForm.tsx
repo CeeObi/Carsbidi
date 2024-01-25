@@ -12,10 +12,15 @@ type Props = {
 
 
 function BidForm({auctionId,highBid}: Props) {
-    const {register, handleSubmit, formState:{errors}, reset,} = useForm()
+    const {register, handleSubmit, formState:{errors}, reset} = useForm()
     const {addBid} = useBidStore((state) => state)    
 
     function handleOnSubmit(data: FieldValues){
+        if (data.amount <= highBid){
+          reset()
+          return toast.error("Bid must be at least $" + numberWithCommas(highBid+1))
+        }
+
         placeBidsForAuctions(auctionId, +data.amount)
         .then((bid) => {
             if (bid.error) throw bid.error;

@@ -20,7 +20,10 @@ type Props ={
 function BidList({user,auction}: Props) {
     const[loading,setLoading]=useState(true);
     const {bids, setBids, addBid} = useBidStore(state=>state)
-    const highbid = bids.reduce((previous, current) => previous > current.amount? previous : current.amount, 0)
+    const highbid = bids.reduce((previous, current) => previous > current.amount ? previous 
+                                                        : current.bidStatus.includes("Accepted") ? current.amount : previous, 0)
+    const {open, setOpen} = useBidStore((state)=>state);
+    const openForBids = new Date(auction.auctionEnd) > new Date();
 
 
     useEffect(()=>{
@@ -36,6 +39,11 @@ function BidList({user,auction}: Props) {
         .finally(()=>setLoading(false))
     },[auction.id,setBids,setLoading])
 
+
+    useEffect(()=>{
+        setOpen(openForBids)
+    },[openForBids, setOpen])
+
     if (loading) return <span>Loading Bids...</span>
 
 
@@ -47,18 +55,23 @@ function BidList({user,auction}: Props) {
             </div>
         </div>
         <div className='overflow-auto h-[400px] flex flex-col-reverse px-2'>
-            {bids.length === 0 ? <EmptyFilter title='No bids for this item' subtitle='Please feel free to make a bid'/> : (<> {(bids).map((bid) => <BidItem key={bid.id} bid={bid} />)} </>)}
+            {bids.length === 0 ? <EmptyFilter title='No bids for this item' subtitle='Please feel free to make a bid'/> 
+            : (<> {(bids).map((bid) => <BidItem key={bid.id} bid={bid} />)} </>)}
         </div>
         <div className='px-2 pb-2 text-gray-500'>
-            {!user
-            ?<div className='flex items-center justify-center p-2 font-semibold text-lg'>
-                    Please login to make a bid
-                </div>
-            : user && user.username === auction.seller 
-            ?(<div className='flex items-center justify-center p-2 font-semibold text-lg'>
-                    You cannot bid on your own auction
-                </div>)
-            :(<BidForm auctionId={auction.id} highBid={highbid} />)
+            {!open 
+                ? (<div className='flex items-center justify-center p-2 font-semibold text-lg'>
+                        This auction has finisehd
+                    </div>) 
+                : !user
+                ? (<div className='flex items-center justify-center p-2 font-semibold text-lg'>
+                        Please login to make a bid
+                    </div>)
+                : user && user.username === auction.seller 
+                ?(<div className='flex items-center justify-center p-2 font-semibold text-lg'>
+                        You cannot bid on your own auction
+                    </div>)
+                :(<BidForm auctionId={auction.id} highBid={highbid} />)
             }
         </div>
     </div> 
