@@ -38,4 +38,7 @@ export async function getDetailedAuction(id: string):Promise<Auction> {
 export async function getBidsForAuctions(id: string): Promise<Bid[]> {
   return await get(`bids/${id}`)  
 }
+export async function placeBidsForAuctions(auctionId: string, amount:number) {
+  return await post(`bids?auctionId=${auctionId}&amount=${amount}`,{})  
+}
   

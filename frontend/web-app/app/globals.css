@@ -7,4 +7,9 @@
     width:100%
 }
 
+@layer components{
+    .input-custom{
+        @apply flex-grow pl-5 bg-transparent focus:outline-none focus:border-transparent border-transparent focus:ring-0
+    }
+}
 
