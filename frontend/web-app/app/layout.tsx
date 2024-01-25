@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Navbar from './nav/Navbar'
 import ToasterProvider from '@/provider/ToasterProvider'
+import SignalRProvider from '@/provider/SignalRProvider'
 
 
 export const metadata: Metadata = {
@@ -17,7 +18,11 @@ export default function RootLayout({children}: {children: React.ReactNode})
       <body className="">
       <ToasterProvider/>   
         <Navbar />
-        <main className='container mx-auto px-5 pt-10'>{children}</main>        
+        <main className='container mx-auto px-5 pt-10'>
+          <SignalRProvider>
+              {children}
+          </SignalRProvider>
+        </main>        
       </body>
       
     </html>

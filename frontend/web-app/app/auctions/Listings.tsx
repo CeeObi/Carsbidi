@@ -39,7 +39,6 @@ function Listings() {
     }
 
     useEffect(() => {
-        console.log(dataUrl)
         getData(dataUrl).then((gottenData) => {
                 setData(gottenData);
                 setLoading(false);

@@ -50,7 +50,16 @@ function BidList({user,auction}: Props) {
             {bids.length === 0 ? <EmptyFilter title='No bids for this item' subtitle='Please feel free to make a bid'/> : (<> {(bids).map((bid) => <BidItem key={bid.id} bid={bid} />)} </>)}
         </div>
         <div className='px-2 pb-2 text-gray-500'>
-            <BidForm auctionId={auction.id} highBid={highbid} />
+            {!user
+            ?<div className='flex items-center justify-center p-2 font-semibold text-lg'>
+                    Please login to make a bid
+                </div>
+            : user && user.username === auction.seller 
+            ?(<div className='flex items-center justify-center p-2 font-semibold text-lg'>
+                    You cannot bid on your own auction
+                </div>)
+            :(<BidForm auctionId={auction.id} highBid={highbid} />)
+            }
         </div>
     </div> 
   )
