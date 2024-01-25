@@ -32,4 +32,13 @@ type Auction = {
     bidStatus: string
   }
 
-export type {PagedResult, Auction, Bid}
+
+  type AuctionFinished ={
+    itemSold: boolean,
+    auctionId: string,
+    winner: string,
+    seller: string,
+    amount: number
+  }
+
+export type {PagedResult, Auction, Bid, AuctionFinished}
