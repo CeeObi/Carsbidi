@@ -13,7 +13,7 @@ const authOptions : NextAuthOptions = {
             id:"id-server",
             clientId: "nextApp",
             clientSecret: "secret",
-            issuer:"http://localhost:5000",
+            issuer:process.env.ID_URL,
             authorization: {params: {
                 scope: "openid profile auctionApp",
                 redirect_uri: "http://localhost:3000/api/auth/callback/id-server"//Tobe modified for container deploy

@@ -20,11 +20,11 @@ function BidForm({auctionId,highBid}: Props) {
           reset()
           return toast.error("Bid must be at least $" + numberWithCommas(highBid+1))
         }
-
         placeBidsForAuctions(auctionId, +data.amount)
         .then((bid) => {
             if (bid.error) throw bid.error;
-            addBid(bid); reset();
+            addBid(bid);
+            reset();
         })
         .catch((e) => toast.error(e.message) )
     }

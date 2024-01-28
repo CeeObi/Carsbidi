@@ -19,7 +19,7 @@ type Props ={
 
 function BidList({user,auction}: Props) {
     const[loading,setLoading]=useState(true);
-    const {bids, setBids, addBid} = useBidStore(state=>state)
+    const {bids, setBids} = useBidStore(state=>state)
     const highbid = bids.reduce((previous, current) => previous > current.amount ? previous 
                                                         : current.bidStatus.includes("Accepted") ? current.amount : previous, 0)
     const {open, setOpen} = useBidStore((state)=>state);
@@ -61,7 +61,7 @@ function BidList({user,auction}: Props) {
         <div className='px-2 pb-2 text-gray-500'>
             {!open 
                 ? (<div className='flex items-center justify-center p-2 font-semibold text-lg'>
-                        This auction has finisehd
+                        This auction has finished
                     </div>) 
                 : !user
                 ? (<div className='flex items-center justify-center p-2 font-semibold text-lg'>

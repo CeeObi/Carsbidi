@@ -22,14 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\Contracts\Contracts.csproj" /> 
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Consumers\" />
   </ItemGroup>
   <ItemGroup>
-    <Protobuf Include="protos/auction.proto" GrpcServices="CLient" />
+    <Protobuf Include="Protos/auction.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>
