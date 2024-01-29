@@ -9,13 +9,13 @@ const authOptions : NextAuthOptions = {
 
     providers:[
         DuendeIdentityServer6({
-            id:"id-server",
+            id:"id-server", 
             clientId: "nextApp",
             clientSecret: "secret",
-            issuer:process.env.ID_URL,
+            issuer: process.env.ID_URL,//Identity server url
             authorization: {params: {
                 scope: "openid profile auctionApp",
-                redirect_uri: "http://localhost:3000/api/auth/callback/id-server"//Tobe modified for container deploy
+                redirect_uri: process.env.ID_REDIRECT_URL 
             }},
             idToken: true
         })
@@ -23,7 +23,7 @@ const authOptions : NextAuthOptions = {
     
     pages: {
         signIn:"/api/auth/signin"
-    },
+    }, 
 
     callbacks:{
         async jwt({token, profile, account}){
