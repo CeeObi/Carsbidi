@@ -1,3 +1,11 @@
+networks:
+  custom:
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+
+
+
 services:
 #start postgresdb service from docker repo
   postgres:
@@ -8,6 +16,8 @@ services:
       - 5432:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      custom:
   
   #start mongodb service from docker repo
   mongo:
@@ -19,6 +29,8 @@ services:
       - 27017:27017
     volumes:
       - mongodata:/var/lib/mongodb/data
+    networks:
+      custom:
   
   #start rabbitmq service from docker repo
   rabbitmq:
@@ -26,6 +38,8 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+    networks:
+      custom:
 
   #Building AuctionService from my local file location
   auction-svc:
@@ -47,6 +61,8 @@ services:
     ports:
       - 7001:80
       - 7777:7777
+    networks:
+      custom:
     depends_on: #Services above
       - postgres
       - rabbitmq     
@@ -66,6 +82,8 @@ services:
       - AuctionServiceUrl:http://auction-svc
     ports:
       - 7002:80
+    networks:
+      custom:
     depends_on:
       - mongo
       - rabbitmq 
@@ -94,6 +112,9 @@ services:
       #
     depends_on:
       - postgres
+    networks:
+      custom:
+        ipv4_address: 10.5.0.200
 
   #Building GatewayService from my local file location
   gateway-svc:
@@ -106,6 +127,8 @@ services:
       - ASPNETCORE_URLS=http://+:80
     ports:
       - 6001:80
+    networks:
+      custom:
 
   #Building BiddingService from my local file location
   bid-svc:
@@ -122,6 +145,8 @@ services:
       - GrpcAuction:http://host.docker.internal:7777
     ports:
       - 7003:80
+    networks:
+      custom:
     depends_on:
       - mongo
       - rabbitmq 
@@ -138,6 +163,8 @@ services:
       - RabbitMq__Host=rabbitmq
     ports:
       - 7004:80
+    networks:
+      custom:
     depends_on:
       - rabbitmq 
 
@@ -152,7 +179,7 @@ services:
     ports:
       - 3000:3000
     extra_hosts:
-      - id.carsbidi.com:172.18.0.11
+      - id.carsbidi.com:10.5.0.200
     environment:
       - NEXTAUTH_SECRET=e85d99a51f44c3c0e67332b0f6d555189fc8d4cfd330ad992af9776ec2d37418
       - NEXTAUTH_URL=http://localhost:3000
@@ -162,6 +189,8 @@ services:
       - ID_REDIRECT_URL=http://localhost:3000/api/auth/callback/id-server
       # - ID_URL=http://identity-svc/
       - NEXT_PUBLIC_NOTIFY_URL=http://gateway-svc/notifications
+    networks:
+      custom:
       
      
 #Volumes
