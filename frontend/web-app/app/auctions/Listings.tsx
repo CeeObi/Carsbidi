@@ -43,7 +43,7 @@ function Listings() {
                 setData(gottenData);
                 setLoading(false);
         });
-    },[dataUrl])
+    },[dataUrl, setData])
 
 
   if (loading){

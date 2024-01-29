@@ -46,7 +46,7 @@ function AuctionForm({auction}:Props) {
             reset ({make, model, mileage, year, color})
         }
         setFocus("make")
-    },[setFocus])
+    },[setFocus, reset,auction])
 
   return (
     <form className='flex flex-col mt-3' onSubmit={handleSubmit(onSubmit)}>

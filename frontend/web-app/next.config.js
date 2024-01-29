@@ -10,7 +10,8 @@ const nextConfig = {
         NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET, //Need to make this acces from the .env file later
         NEXTAUTH_URL: process.env.NEXTAUTH_URL
     },
-    reactStrictMode: false
+    reactStrictMode: false,
+    output: "standalone"
 }
 
 module.exports = nextConfig
