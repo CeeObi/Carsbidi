@@ -20,11 +20,12 @@ function SignalRProvider({children, user}:Props) {
     const [connection, setConnection] = useState<HubConnection | null>(null);
     const {setCurrentPrice} = useActionStore((state) => state);
     const {addBid} = useBidStore((state) => state)
+    const apiUrl = process.env.NODE_ENV === "production" ? "https://api.carsbidi.com/notifications" : process.env.NEXT_PUBLIC_NOTIFY_URL!
 
     useEffect(()=>{
-        const newConnection = new HubConnectionBuilder().withUrl(process.env.NEXT_PUBLIC_NOTIFY_URL!).withAutomaticReconnect().build();
+        const newConnection = new HubConnectionBuilder().withUrl(apiUrl).withAutomaticReconnect().build();
         setConnection(newConnection)
-    },[])
+    },[apiUrl])
 
 
     useEffect(() => {
@@ -33,7 +34,7 @@ function SignalRProvider({children, user}:Props) {
             .then(()=>{
                 console.log("Connected to notification hub");
                 connection.on("BidPlaced",(bid: Bid)=>{
-                    // console.log("Bid Placed event received");
+                    console.log("Bid Placed event received");
                     if (bid.bidStatus.includes("Accepted")){
                         setCurrentPrice(bid.auctionId, bid.amount)
                     };
