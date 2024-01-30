@@ -18,7 +18,7 @@ public static class Config
             
         };
 
-    public static IEnumerable<Client> Clients =>
+    public static IEnumerable<Client> Clients(IConfiguration config) =>
         new Client[]
         {
            new Client()
@@ -28,14 +28,14 @@ public static class Config
             AllowedScopes = {"openid", "profile","auctionApp"},
             RedirectUris = {"https://www.getpostman.com/oauth2/callback"},
             ClientSecrets = new[] {new Secret("NotASecret".Sha256())},
-            AllowedGrantTypes = {GrantType.ResourceOwnerPassword}
+            AllowedGrantTypes = {GrantType.ResourceOwnerPassword} 
            },
            new Client()
            {
             ClientId = "nextApp",
             ClientName = "nextApp",
             AllowedScopes = {"openid", "profile","auctionApp"},
-            RedirectUris = {"http://localhost:3000/api/auth/callback/id-server"},//Remember to configure this securely
+            RedirectUris = {config["ClientApp"] + "/api/auth/callback/id-server"},//Remember to configure this securely
             ClientSecrets = [new Secret("secret".Sha256())],
             AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
             RequirePkce = false,
