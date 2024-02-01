@@ -23,7 +23,7 @@ builder.Services.AddMassTransit(x =>
                     });
                     cfg.ConfigureEndpoints(context);
                 });
-            });
+            }); 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => 
 {

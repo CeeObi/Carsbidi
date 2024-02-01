@@ -4,7 +4,7 @@ using MongoDB.Entities;
 using SearchService.Model;
 using SearchService.RequestHelpers;
 
-namespace SearchService;
+namespace SearchService.Controllers;
 
 [ApiController]
 [Route("api/search")]

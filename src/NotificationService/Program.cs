@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.SignalR;
 using NotificationService;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddControllers();
 builder.Services.AddMassTransit(x =>
             {
                 x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
@@ -28,5 +28,6 @@ builder.Services.AddSignalR();
 var app = builder.Build();
 
 app.MapHub<NotificationHub>("/notifications");
+app.MapControllers();
 
 app.Run();
