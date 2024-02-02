@@ -23,6 +23,7 @@ public class DbInitializer
             return;
         }
 
+        Console.WriteLine("---> Creating Auction Db and seeding data");
         var auction_list = new List<Auction>()
         {
             	    // 1 Ford GT
