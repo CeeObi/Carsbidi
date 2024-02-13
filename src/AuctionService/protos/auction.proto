@@ -11,8 +11,8 @@ service GrpcAuction {
 
 message GetAuctionRequest{
     string id = 1;
-}
-
+} //
+ 
 
 
 message GrpcAuctionModel{

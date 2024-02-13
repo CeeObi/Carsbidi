@@ -19,7 +19,7 @@ services:
     networks:
       custom:
   
-  #start mongodb service from docker repo
+  #start mongodb service from docker repos
   mongo:
     image: mongo
     environment:
