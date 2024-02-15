@@ -128,9 +128,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
       - ClientApp=https://app.carsbidi.com
-      - VIRTUAL_HOST=api.carsbidi.com
-    # ports:
-    #   - 6001:80
+      - VIRTUAL_HOST=api.carsbidi.com      
+    ports:
+      - 6001:80
     networks:
       custom:
 
