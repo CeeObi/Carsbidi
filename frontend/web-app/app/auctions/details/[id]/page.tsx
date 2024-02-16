@@ -16,22 +16,23 @@ async function Details({params}: {params: {id : string}}) {
 
   return (
     <div>
+      <div className='flex gap-3 mb-5 bg-slate-100 mt-0 md:hidden align-middle justify-center'>
+          <h3 className="text-md  sm:text-2xl font-semibold mb-0 pb-0">Time Remaining:</h3>
+          <CountdownTimer auctionEnd={data.auctionEnd} />
+      </div>
       <div className='flex justify-between'>
-
         <div className='flex items-center gap-3'>
-          <Headings title={`${data.make} ${data.model}`} />
+          <Headings title={`${data.make}, ${data.model}`} />
           {user?.username == data.seller && <>
            <EditButton id={params.id} />
            <DeleteButton id={params.id} />
            </>}
         </div>
-
-        <div className='flex gap-3'>
-          <h3 className="text-2xl font-semibold">Time remaining:</h3>
+        <div className='hidden md:flex gap-3'>
+          <h3 className="text-md  sm:text-2xl font-semibold">Time Remaining:</h3>
           <CountdownTimer auctionEnd={data.auctionEnd} />
         </div>
-
-      </div>
+      </div>      
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-3">
         <div className="w-full bg-gray-200 aspect-h-10 aspect-w-16 rounded-lg overflow-hidden"><CarImage imgUrl={data.imageUrl} /></div>
         <BidList user={user} auction={data} />
