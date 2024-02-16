@@ -48,6 +48,8 @@ function AuctionForm({auction}:Props) {
         setFocus("make")
     },[setFocus, reset,auction])
 
+
+
   return (
     <form className='flex flex-col mt-3' onSubmit={handleSubmit(onSubmit)}>
         <Input label='Make' name='make' control={control} rules={{required:"Make is required"}} />
@@ -69,7 +71,7 @@ function AuctionForm({auction}:Props) {
             </> 
         }
         <div className='flex justify-between'>
-            <Button outline color='gray'>Cancel</Button>
+            <Button onClick={()=>router.push("/")} outline color='gray'>Cancel</Button>
             <Button type='submit' outline disabled={!isValid} isProcessing={isSubmitting} color='success'>Submit</Button>
         </div>
     </form>
