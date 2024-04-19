@@ -98,7 +98,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=passw0rd;Database=identity
+      - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=passw0rd;Database=identity #Constr for docker
+      # - ConnectionStrings__DefaultConnection=Server=auction-svice.postgres.database.azure.com;Database=identity;Port=5432;User Id=postgres;Password=passw0rd!;Ssl Mode=Require; #constr for azure
+      # - ConnectionStrings__DefaultConnection=Server=dpg-cmserr0l5elc738pdlh0-a.singapore-postgres.render.com:5432;User Id=genauth_user;Password=ojATAnyposIAhrt2e1TGn0YYFLiR9ItC;Database=genauth #Constr for render
+      
       - VIRTUAL_HOST=id.carsbidi.com
       - ClientApp=http://app.carsbidi.com
     ports:
